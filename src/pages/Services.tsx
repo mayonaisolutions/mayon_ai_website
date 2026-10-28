@@ -14,7 +14,7 @@ const pageVariants = {
 export const Services: React.FC = () => {
   const serviceDetails = [
     {
-      image: '/images/service_web_dev.jpg',
+      image: `${process.env.PUBLIC_URL}/images/service_web_dev.jpg`,
       icon: <Globe className="w-8 h-8 text-brand-volcano" />,
       title: 'Web Engineering',
       tagline: 'Fast, secure, and SEO-first core products.',
@@ -28,7 +28,7 @@ export const Services: React.FC = () => {
       ]
     },
     {
-      image: '/images/service_backend_dev.jpg',
+      image: `${process.env.PUBLIC_URL}/images/service_backend_dev.jpg`,
       icon: <Server className="w-8 h-8 text-brand-volcano" />,
       title: 'Backend Engineering',
       tagline: 'Scalable, secure, and fast server architectures.',
@@ -42,7 +42,7 @@ export const Services: React.FC = () => {
       ]
     },
     {
-      image: '/images/service_ai_solutions.jpg',
+      image: `${process.env.PUBLIC_URL}/images/service_ai_solutions.jpg`,
       icon: <Brain className="w-8 h-8 text-brand-volcano" />,
       title: 'AI Solutions & Pipelines',
       tagline: 'Intelligent process automations.',

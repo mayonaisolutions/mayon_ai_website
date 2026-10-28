@@ -23,7 +23,7 @@ const ScrollToTop: React.FC = () => {
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen bg-bg-main text-text-primary transition-colors duration-300">
           <Header />

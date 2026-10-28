@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 export const ServicesSection: React.FC = () => {
   const services = [
     {
-      image: '/images/service_web_dev.jpg',
+      image: `${process.env.PUBLIC_URL}/images/service_web_dev.jpg`,
       icon: <Globe className="w-5 h-5 text-brand-volcano" />,
       title: 'Web Development',
       description:
@@ -21,7 +21,7 @@ export const ServicesSection: React.FC = () => {
       ],
     },
     {
-      image: '/images/service_backend_dev.jpg',
+      image: `${process.env.PUBLIC_URL}/images/service_backend_dev.jpg`,
       icon: <Server className="w-5 h-5 text-brand-volcano" />,
       title: 'Backend Development',
       description:
@@ -34,7 +34,7 @@ export const ServicesSection: React.FC = () => {
       ],
     },
     {
-      image: '/images/service_ai_solutions.jpg',
+      image: `${process.env.PUBLIC_URL}/images/service_ai_solutions.jpg`,
       icon: <Brain className="w-5 h-5 text-brand-volcano" />,
       title: 'AI Solutions',
       description:

@@ -190,7 +190,7 @@ export const Hero: React.FC = () => {
               }}
             >
               <img
-                src="/image.png"
+                src={`${process.env.PUBLIC_URL}/image.png`}
                 alt="Mayon AI Solutions Logo"
                 className="w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] object-contain drop-shadow-[0_0_35px_rgba(124,58,237,0.4)]"
               />

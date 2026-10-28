@@ -10,7 +10,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', showText = true }) =
     <div className={`flex items-center gap-2.5 font-sans select-none ${className}`}>
       {/* Brand logo image from public/image.png */}
       <img
-        src="/image.png"
+        src={`${process.env.PUBLIC_URL}/image.png`}
         alt="Mayon AI Solutions Logo"
         className="w-9 h-9 object-contain"
       />
