@@ -4,7 +4,6 @@ import { Hero } from '../components/sections/Hero';
 import { ServicesSection } from '../components/sections/ServicesSection';
 import { Process } from '../components/sections/Process';
 import { WhyMayon } from '../components/sections/WhyMayon';
-import { Testimonials } from '../components/sections/Testimonials';
 import { CTABanner } from '../components/sections/CTABanner';
 
 const pageVariants = {
@@ -26,7 +25,6 @@ export const Home: React.FC = () => {
       <ServicesSection />
       <Process />
       <WhyMayon />
-      <Testimonials />
       <CTABanner />
     </motion.main>
   );

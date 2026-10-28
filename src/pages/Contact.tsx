@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Mail, Clock, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+
+const SERVICE_ID = process.env.REACT_APP_SERVICE_ID || 'service_b7xim7n';
+const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID || 'template_bvks758';
+const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY || 'D1-oDo1S993H_o_93';
 
 const pageVariants = {
   initial: { opacity: 0, y: 10 },
@@ -14,7 +19,6 @@ interface FormState {
   name: string;
   email: string;
   projectType: string;
-  budget: string;
   message: string;
 }
 
@@ -30,13 +34,13 @@ export const Contact: React.FC = () => {
     name: '',
     email: '',
     projectType: '',
-    budget: '',
     message: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const projectTypes = [
     { value: 'web', label: 'Web Development / Next.js' },
@@ -45,16 +49,9 @@ export const Contact: React.FC = () => {
     { value: 'other', label: 'Consulting / Custom Integration' },
   ];
 
-  const budgets = [
-    { value: 'under-10k', label: 'Under $10,000' },
-    { value: '10k-25k', label: '$10,000 – $25,000' },
-    { value: '25k-50k', label: '$25,000 – $50,000' },
-    { value: 'over-50k', label: 'Over $50,000' },
-  ];
-
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required.';
     } else if (formData.name.trim().length < 2) {
@@ -93,17 +90,67 @@ export const Contact: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    // Simulate API request
-    setTimeout(() => {
+    setErrorMessage(null);
+
+    const selectedProjectTypeLabel =
+      projectTypes.find((t) => t.value === formData.projectType)?.label ||
+      formData.projectType;
+
+    const templateParams = {
+      // Sender Info
+      name: formData.name,
+      from_name: formData.name,
+      user_name: formData.name,
+      email: formData.email,
+      from_email: formData.email,
+      user_email: formData.email,
+      reply_to: formData.email,
+
+      // Project Details (all common template aliases)
+      project_details: formData.message,
+      projectDetails: formData.message,
+      project_detail: formData.message,
+      projectDetail: formData.message,
+      details: formData.message,
+      message: formData.message,
+      description: formData.message,
+      project_description: formData.message,
+
+      // Project Type
+      project_type: selectedProjectTypeLabel,
+      projectType: selectedProjectTypeLabel,
+      service: selectedProjectTypeLabel,
+      service_type: selectedProjectTypeLabel,
+      category: selectedProjectTypeLabel,
+      raw_project_type: formData.projectType,
+
+      // Combined content fallback
+      content: `Project Type: ${selectedProjectTypeLabel}\n\nProject Details:\n${formData.message}`,
+
+      // Recipient Info
+      to_name: 'Mayon AI Solutions',
+    };
+
+    try {
+      emailjs.init({ publicKey: PUBLIC_KEY });
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, {
+        publicKey: PUBLIC_KEY,
+      });
       setIsSubmitting(false);
       setIsSuccess(true);
-      setFormData({ name: '', email: '', projectType: '', budget: '', message: '' });
-    }, 1500);
+      setFormData({ name: '', email: '', projectType: '', message: '' });
+    } catch (err: any) {
+      console.error('EmailJS send error:', err);
+      setIsSubmitting(false);
+      setErrorMessage(
+        err?.text || 'Failed to send your message. Please try again or reach out directly at mayonaisolutions@gmail.com.'
+      );
+    }
   };
 
   return (
@@ -115,7 +162,7 @@ export const Contact: React.FC = () => {
       className="pt-28 pb-16 bg-bg-main min-h-screen transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-text-primary">
@@ -145,8 +192,8 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="space-y-1 text-left">
                   <h4 className="text-xs font-bold text-text-primary uppercase tracking-wider">Email Inquiry</h4>
-                  <a href="mailto:hello@mayon.ai" className="text-sm font-semibold text-text-secondary hover:text-brand-volcano transition-colors">
-                    hello@mayon.ai
+                  <a href="mailto:mayonaisolutions@gmail.com" className="text-sm font-semibold text-text-secondary hover:text-brand-volcano transition-colors break-all">
+                    mayonaisolutions@gmail.com
                   </a>
                 </div>
               </div>
@@ -165,12 +212,12 @@ export const Contact: React.FC = () => {
 
               <div className="flex gap-4 items-start p-4 rounded-xl border border-border-main/50 bg-bg-card">
                 <div className="p-2.5 rounded-lg border border-border-main bg-bg-main text-brand-volcano shrink-0">
-                  <MapPin className="w-4 h-4" />
+                  <CheckCircle2 className="w-4 h-4" />
                 </div>
                 <div className="space-y-1 text-left">
-                  <h4 className="text-xs font-bold text-text-primary uppercase tracking-wider">Studio Headquarters</h4>
+                  <h4 className="text-xs font-bold text-text-primary uppercase tracking-wider">Turnaround Time</h4>
                   <p className="text-sm text-text-secondary leading-relaxed font-medium">
-                    New York City / Distributed Globally
+                    Response within 24 business hours
                   </p>
                 </div>
               </div>
@@ -202,11 +249,10 @@ export const Contact: React.FC = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${
-                          errors.name
+                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${errors.name
                             ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
                             : 'border-border-main focus:border-brand-volcano/50 focus:ring-1 focus:ring-brand-volcano/30'
-                        }`}
+                          }`}
                         placeholder="Sarah Jenkins"
                       />
                       {errors.name && (
@@ -228,11 +274,10 @@ export const Contact: React.FC = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${
-                          errors.email
+                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${errors.email
                             ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
                             : 'border-border-main focus:border-brand-volcano/50 focus:ring-1 focus:ring-brand-volcano/30'
-                        }`}
+                          }`}
                         placeholder="sarah@cloudoptima.com"
                       />
                       {errors.email && (
@@ -243,59 +288,34 @@ export const Contact: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Dropdowns Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {/* Project Type */}
-                      <div className="space-y-2 text-left">
-                        <label htmlFor="projectType" className="text-xs font-bold text-text-primary uppercase tracking-wider">
-                          Project Type <span className="text-brand-volcano">*</span>
-                        </label>
-                        <select
-                          id="projectType"
-                          name="projectType"
-                          value={formData.projectType}
-                          onChange={handleInputChange}
-                          className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${
-                            errors.projectType
-                              ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
-                              : 'border-border-main focus:border-brand-volcano/50 focus:ring-1 focus:ring-brand-volcano/30'
+                    {/* Project Type */}
+                    <div className="space-y-2 text-left">
+                      <label htmlFor="projectType" className="text-xs font-bold text-text-primary uppercase tracking-wider">
+                        Project Type <span className="text-brand-volcano">*</span>
+                      </label>
+                      <select
+                        id="projectType"
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={handleInputChange}
+                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${errors.projectType
+                            ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
+                            : 'border-border-main focus:border-brand-volcano/50 focus:ring-1 focus:ring-brand-volcano/30'
                           }`}
-                        >
-                          <option value="">Select an option</option>
-                          {projectTypes.map((type) => (
-                            <option key={type.value} value={type.value}>
-                              {type.label}
-                            </option>
-                          ))}
-                        </select>
-                        {errors.projectType && (
-                          <p className="text-red-500 text-xs font-medium flex items-center gap-1.5 pt-0.5">
-                            <AlertCircle className="w-3.5 h-3.5" />
-                            {errors.projectType}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Budget */}
-                      <div className="space-y-2 text-left">
-                        <label htmlFor="budget" className="text-xs font-bold text-text-primary uppercase tracking-wider">
-                          Est. Budget
-                        </label>
-                        <select
-                          id="budget"
-                          name="budget"
-                          value={formData.budget}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-xl border border-border-main bg-bg-main text-sm text-text-primary focus:outline-none focus:border-brand-volcano/50 focus:ring-1 focus:ring-brand-volcano/30 transition-all duration-200"
-                        >
-                          <option value="">Select budget size</option>
-                          {budgets.map((b) => (
-                            <option key={b.value} value={b.value}>
-                              {b.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                      >
+                        <option value="">Select an option</option>
+                        {projectTypes.map((type) => (
+                          <option key={type.value} value={type.value}>
+                            {type.label}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.projectType && (
+                        <p className="text-red-500 text-xs font-medium flex items-center gap-1.5 pt-0.5">
+                          <AlertCircle className="w-3.5 h-3.5" />
+                          {errors.projectType}
+                        </p>
+                      )}
                     </div>
 
                     {/* Message */}
@@ -309,11 +329,10 @@ export const Contact: React.FC = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={5}
-                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${
-                          errors.message
+                        className={`w-full px-4 py-3 rounded-xl border bg-bg-main text-sm text-text-primary transition-all duration-200 focus:outline-none ${errors.message
                             ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
                             : 'border-border-main focus:border-brand-volcano/50 focus:ring-1 focus:ring-brand-volcano/30'
-                        }`}
+                          }`}
                         placeholder="Tell us about the scope, objectives, and any technical timelines you have in mind..."
                       />
                       {errors.message && (
@@ -323,6 +342,14 @@ export const Contact: React.FC = () => {
                         </p>
                       )}
                     </div>
+
+                    {/* Error Banner */}
+                    {errorMessage && (
+                      <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs flex items-start gap-2.5 text-left">
+                        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                        <span>{errorMessage}</span>
+                      </div>
+                    )}
 
                     {/* Submit Button */}
                     <div className="pt-2">
@@ -355,7 +382,14 @@ export const Contact: React.FC = () => {
                       </p>
                     </div>
                     <div className="pt-4">
-                      <Button variant="secondary" size="md" onClick={() => setIsSuccess(false)}>
+                      <Button
+                        variant="secondary"
+                        size="md"
+                        onClick={() => {
+                          setIsSuccess(false);
+                          setErrorMessage(null);
+                        }}
+                      >
                         Send Another Message
                       </Button>
                     </div>

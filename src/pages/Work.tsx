@@ -47,7 +47,7 @@ export const Work: React.FC = () => {
       description: 'Conversational agent and ticket routing backend using custom embeddings to automate 60% of customer support workloads.',
       category: 'AI',
       tags: ['LangChain', 'PgVector', 'Anthropic', 'Python'],
-      stat: '$14k/mo saved',
+      stat: '₹12L/mo saved',
     },
     {
       title: 'LogiRoute Fleet Router',

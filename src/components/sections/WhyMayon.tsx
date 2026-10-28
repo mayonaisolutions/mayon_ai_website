@@ -79,7 +79,7 @@ export const WhyMayon: React.FC = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {valueProps.map((prop, idx) => (
-            <motion.div key={idx} variants={itemVariants}>
+            <motion.div key={idx} variants={itemVariants} className="h-full">
               <Card className="h-full flex flex-col justify-between hover:border-brand-volcano/30">
                 <div className="space-y-6">
                   {/* Top row */}

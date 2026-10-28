@@ -8,7 +8,8 @@ import { motion } from 'framer-motion';
 export const ServicesSection: React.FC = () => {
   const services = [
     {
-      icon: <Globe className="w-6 h-6 text-brand-volcano" />,
+      image: '/images/service_web_dev.jpg',
+      icon: <Globe className="w-5 h-5 text-brand-volcano" />,
       title: 'Web Development',
       description:
         'We build lightning-fast, secure websites and web applications tailored for maximum conversion, scalability, and seamless user experiences.',
@@ -20,7 +21,8 @@ export const ServicesSection: React.FC = () => {
       ],
     },
     {
-      icon: <Server className="w-6 h-6 text-brand-volcano" />,
+      image: '/images/service_backend_dev.jpg',
+      icon: <Server className="w-5 h-5 text-brand-volcano" />,
       title: 'Backend Development',
       description:
         'Custom server-side architectures, REST/GraphQL APIs, and robust database layers engineered for scalability, high concurrency, and data safety.',
@@ -32,7 +34,8 @@ export const ServicesSection: React.FC = () => {
       ],
     },
     {
-      icon: <Brain className="w-6 h-6 text-brand-volcano" />,
+      image: '/images/service_ai_solutions.jpg',
+      icon: <Brain className="w-5 h-5 text-brand-volcano" />,
       title: 'AI Solutions',
       description:
         'Integrate modern machine learning models and large language models (LLMs) to automate operations, construct chatbots, and extract data.',
@@ -80,23 +83,41 @@ export const ServicesSection: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"
         >
           {services.map((service, idx) => (
-            <motion.div key={idx} variants={itemVariants}>
-              <Card className="h-full flex flex-col justify-between hover:border-brand-volcano/30">
-                <div className="space-y-6">
-                  {/* Icon Badge */}
-                  <div className="w-12 h-12 rounded-2xl border border-border-main bg-bg-main flex items-center justify-center shadow-sm">
+            <motion.div key={idx} variants={itemVariants} className="h-full flex flex-col">
+              <Card className="h-full flex flex-col justify-between overflow-hidden !p-0 group hover:border-brand-volcano/40 transition-all duration-300">
+                {/* Visual Banner Image */}
+                <div className="relative w-full h-52 overflow-hidden bg-bg-main border-b border-border-main/50">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  {/* Subtle gradient overlay to blend into card */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-card/90 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Floating Icon Badge on top of image */}
+                  <div className="absolute bottom-3 left-6 p-2 rounded-xl border border-border-main bg-bg-card/95 backdrop-blur-md shadow-sm">
                     {service.icon}
                   </div>
+                </div>
+
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
                   {/* Info */}
                   <div className="space-y-3">
-                    <h3 className="text-xl font-bold tracking-tight text-text-primary">{service.title}</h3>
-                    <p className="text-text-secondary text-sm leading-relaxed">{service.description}</p>
+                    <h3 className="text-xl font-bold tracking-tight text-text-primary group-hover:text-brand-volcano transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-text-secondary text-sm leading-relaxed font-light">
+                      {service.description}
+                    </p>
                   </div>
+
                   {/* Bullets */}
-                  <ul className="space-y-2.5 pt-2">
+                  <ul className="space-y-2.5 pt-1">
                     {service.bullets.map((bullet, bIdx) => (
                       <li key={bIdx} className="flex items-start gap-2.5 text-xs text-text-secondary">
                         <CheckCircle2 className="w-4 h-4 text-brand-volcano shrink-0 mt-0.5" />
@@ -104,15 +125,15 @@ export const ServicesSection: React.FC = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
 
-                <div className="pt-8 mt-auto">
-                  <Link to="/services" className="block w-full">
-                    <Button variant="secondary" className="w-full justify-between group py-2.5 rounded-xl text-xs font-semibold">
-                      Learn More
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
+                  <div className="pt-4 mt-auto">
+                    <Link to="/services" className="block w-full">
+                      <Button variant="secondary" className="w-full justify-between group-hover:border-brand-volcano/30 py-2.5 rounded-xl text-xs font-semibold">
+                        Learn More
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </Card>
             </motion.div>

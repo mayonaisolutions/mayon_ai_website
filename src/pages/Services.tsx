@@ -14,6 +14,7 @@ const pageVariants = {
 export const Services: React.FC = () => {
   const serviceDetails = [
     {
+      image: '/images/service_web_dev.jpg',
       icon: <Globe className="w-8 h-8 text-brand-volcano" />,
       title: 'Web Engineering',
       tagline: 'Fast, secure, and SEO-first core products.',
@@ -27,6 +28,7 @@ export const Services: React.FC = () => {
       ]
     },
     {
+      image: '/images/service_backend_dev.jpg',
       icon: <Server className="w-8 h-8 text-brand-volcano" />,
       title: 'Backend Engineering',
       tagline: 'Scalable, secure, and fast server architectures.',
@@ -40,6 +42,7 @@ export const Services: React.FC = () => {
       ]
     },
     {
+      image: '/images/service_ai_solutions.jpg',
       icon: <Brain className="w-8 h-8 text-brand-volcano" />,
       title: 'AI Solutions & Pipelines',
       tagline: 'Intelligent process automations.',
@@ -85,8 +88,17 @@ export const Services: React.FC = () => {
             >
               {/* Text description (col 5) */}
               <div className={`lg:col-span-5 space-y-6 ${idx % 2 === 1 ? 'lg:order-last' : ''}`}>
-                <div className="w-16 h-16 rounded-2xl border border-border-main bg-bg-card flex items-center justify-center shadow-volcanic">
-                  {service.icon}
+                <div className="w-full h-52 rounded-2xl overflow-hidden border border-border-main/60 bg-bg-card relative shadow-volcanic group">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-card/85 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-4 p-2 rounded-xl border border-border-main bg-bg-card/95 backdrop-blur-md shadow-sm">
+                    {service.icon}
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">{service.title}</h2>

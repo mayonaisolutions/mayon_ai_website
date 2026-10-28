@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '../ui/Logo';
-import { Github, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Twitter, ArrowUpRight, Mail } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -26,6 +26,13 @@ export const Footer: React.FC = () => {
             <p className="text-text-secondary text-sm max-w-sm leading-relaxed">
               We design, build, and scale premium websites, backend systems, and custom AI systems that power high-growth businesses.
             </p>
+            <a
+              href="mailto:mayonaisolutions@gmail.com"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm text-text-secondary hover:text-brand-volcano transition-colors w-fit font-medium"
+            >
+              <Mail className="w-4 h-4 text-brand-volcano shrink-0" />
+              <span>mayonaisolutions@gmail.com</span>
+            </a>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
                 <a
@@ -54,11 +61,6 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/services" className="text-sm text-text-secondary hover:text-brand-volcano transition-colors">
                   Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/work" className="text-sm text-text-secondary hover:text-brand-volcano transition-colors">
-                  Work
                 </Link>
               </li>
               <li>
@@ -91,11 +93,6 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/services" className="text-sm text-text-secondary hover:text-brand-volcano transition-colors">
                   AI Integrations
-                </Link>
-              </li>
-              <li>
-                <Link to="/services" className="text-sm text-text-secondary hover:text-brand-volcano transition-colors">
-                  Cloud Architectures
                 </Link>
               </li>
             </ul>

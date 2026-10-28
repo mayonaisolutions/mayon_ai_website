@@ -65,24 +65,32 @@ export const Process: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="relative grid grid-cols-1 md:grid-cols-4 gap-8"
+          className="relative grid grid-cols-1 md:grid-cols-4 gap-8 items-stretch"
         >
           {/* Connecting Track Line for Desktop */}
-          <div className="hidden md:block absolute top-[45px] left-[5%] right-[5%] h-0.5 bg-border-main z-0" />
+          <div className="hidden md:block absolute top-7 left-[5%] right-[5%] h-0.5 bg-border-main z-0" />
 
           {steps.map((step, idx) => (
-            <motion.div key={idx} variants={itemVariants} className="relative z-10 space-y-6">
+            <motion.div
+              key={idx}
+              variants={itemVariants}
+              className="relative z-10 flex flex-col h-full"
+            >
               {/* Number circle */}
-              <div className="relative flex justify-start md:justify-center">
+              <div className="relative flex justify-start md:justify-center mb-6 shrink-0">
                 <div className="w-14 h-14 rounded-full border border-border-main bg-bg-card flex items-center justify-center shadow-volcanic text-lg font-bold text-brand-volcano hover:border-brand-volcano/30 hover:scale-105 transition-all duration-300">
                   {step.number}
                 </div>
               </div>
 
               {/* Text Card */}
-              <div className="bg-bg-card border border-border-main/60 rounded-2xl p-6 shadow-sm text-left md:text-center space-y-3 hover:border-border-main transition-all duration-300">
-                <h3 className="text-lg font-bold text-text-primary tracking-tight">{step.title}</h3>
-                <p className="text-text-secondary text-sm leading-relaxed font-light">{step.description}</p>
+              <div className="bg-bg-card border border-border-main/60 rounded-2xl p-6 shadow-sm text-left md:text-center flex-1 flex flex-col hover:border-border-main hover:shadow-md transition-all duration-300">
+                <h3 className="text-lg font-bold text-text-primary tracking-tight mb-3 min-h-[3.25rem] flex items-center justify-start md:justify-center">
+                  {step.title}
+                </h3>
+                <p className="text-text-secondary text-sm leading-relaxed font-light flex-1">
+                  {step.description}
+                </p>
               </div>
             </motion.div>
           ))}

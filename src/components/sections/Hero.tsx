@@ -84,9 +84,9 @@ export const Hero: React.FC = () => {
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
-              <Link to="/work">
+              <Link to="/services">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto font-semibold">
-                  View Our Portfolio
+                  Explore Services
                 </Button>
               </Link>
             </motion.div>

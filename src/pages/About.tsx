@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '../components/ui/Card';
-import { Compass, ShieldCheck, Flame, Infinity } from 'lucide-react';
+import { Compass, ShieldCheck, Sparkles, Infinity } from 'lucide-react';
 
 const pageVariants = {
   initial: { opacity: 0, y: 10 },
@@ -12,8 +12,8 @@ const pageVariants = {
 export const About: React.FC = () => {
   const coreValues = [
     {
-      icon: <Flame className="w-5 h-5 text-brand-volcano" />,
-      title: 'Volcanic Energy, Mapped Speed',
+      icon: <Sparkles className="w-5 h-5 text-brand-volcano" />,
+      title: 'Precision Energy, Rapid Velocity',
       description: 'We believe speed is a feature. We engineer sites and frameworks that load instantly and respond instantly to interaction.',
     },
     {
@@ -50,7 +50,7 @@ export const About: React.FC = () => {
               <span>Our Story</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-text-primary leading-[1.1]">
-              Engineering digital peaks of absolute symmetry and speed
+              Engineering digital architectures of enduring precision and speed
             </h1>
             <p className="text-text-secondary text-base leading-relaxed font-light">
               Mayon AI Solutions was founded to bridge the massive gap between template web agencies and top-tier enterprise engineering shops. We serve startups and high-growth brands who demand speed, security, and next-gen AI capabilities in their product stack.
@@ -60,26 +60,26 @@ export const About: React.FC = () => {
             </p>
           </div>
 
-          {/* Volcano Monogram Theme Origin */}
+          {/* Mayon Name Origin */}
           <div className="lg:col-span-5">
             <Card className="border-brand-volcano/20 bg-bg-card p-8 shadow-volcanic relative overflow-hidden space-y-6">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-glow opacity-30 rounded-full blur-2xl pointer-events-none" />
               <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                <Flame className="w-5 h-5 text-brand-volcano animate-pulse" />
+                <Sparkles className="w-5 h-5 text-brand-volcano animate-pulse" />
                 The Mayon Name Origin
               </h3>
               <p className="text-text-secondary text-xs sm:text-sm leading-relaxed font-light">
-                Our name draws direct inspiration from <strong>Mount Mayon</strong> — an active stratovolcano famous globally for its renowned, almost perfectly symmetrical cone shape. 
+                Our name <strong>Mayon</strong> traces its roots to ancient classical heritage, denoting <strong>Lord Vishnu</strong> — the cosmic preserver, protector, and architect of universal order and balance.
               </p>
               <p className="text-text-secondary text-xs sm:text-sm leading-relaxed font-light">
-                We embed this philosophy directly into our design systems: **Absolute symmetry, clean structural grids, and intense underlying volcanic power.**
+                We embed this philosophy directly into our engineering systems: <strong>Supreme protection, architectural harmony, enduring resilience, and intelligent stewardship.</strong>
               </p>
               <div className="flex items-center gap-4 text-xs font-bold text-brand-volcano border-t border-border-main pt-4">
-                <div>Perfect Symmetry</div>
+                <div>Cosmic Balance</div>
                 <div className="w-1.5 h-1.5 rounded-full bg-text-muted" />
-                <div>Bespoke Grids</div>
+                <div>Supreme Protection</div>
                 <div className="w-1.5 h-1.5 rounded-full bg-text-muted" />
-                <div>Focused Power</div>
+                <div>Enduring Resilience</div>
               </div>
             </Card>
           </div>
