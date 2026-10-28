@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mayon_ai_website/static/css/main.bf23748c.css",
+    "main.js": "/mayon_ai_website/static/js/main.47b5c91f.js",
+    "index.html": "/mayon_ai_website/index.html",
+    "main.bf23748c.css.map": "/mayon_ai_website/static/css/main.bf23748c.css.map",
+    "main.47b5c91f.js.map": "/mayon_ai_website/static/js/main.47b5c91f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf23748c.css",
+    "static/js/main.47b5c91f.js"
+  ]
+}
